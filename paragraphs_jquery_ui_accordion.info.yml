@@ -1,0 +1,9 @@
+name: Paragraphs jQuery UI Accordion
+description: Adds jQuery UI Accordion for paragraphs.
+type: module
+package: Paragraphs
+core: 8.x
+dependencies:
+  - paragraphs
+libraries:
+  - paragraphs_jquery_ui_accordion/accordion
