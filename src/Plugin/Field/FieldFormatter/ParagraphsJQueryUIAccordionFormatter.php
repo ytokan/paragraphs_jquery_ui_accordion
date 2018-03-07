@@ -47,8 +47,9 @@ class ParagraphsJQueryUIAccordionFormatter extends FormatterBase implements Cont
   /**
    * The entity type id.
    *
+   * @var string
    */
-  protected $entityTypeId;
+  protected $entityTypeId = '';
 
   /**
    * ParagraphsJQueryUIAccordionFormatter constructor.
@@ -101,11 +102,11 @@ class ParagraphsJQueryUIAccordionFormatter extends FormatterBase implements Cont
    */
   public static function defaultSettings() {
     return [
-        'bundle' => '',
-        'title' => '',
-        'content' => '',
-        'autoscroll' => 0,
-      ] + parent::defaultSettings();
+      'bundle' => '',
+      'title' => '',
+      'content' => '',
+      'autoscroll' => 0,
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -120,7 +121,7 @@ class ParagraphsJQueryUIAccordionFormatter extends FormatterBase implements Cont
     $form['bundle'] = [
       '#type' => 'select',
       '#title' => $this->t('Paragraph bundle'),
-      '#default_value' =>$this->getSetting('bundle'),
+      '#default_value' => $this->getSetting('bundle'),
       '#options' => $bundles,
     ];
     $form['title'] = [
@@ -177,10 +178,10 @@ class ParagraphsJQueryUIAccordionFormatter extends FormatterBase implements Cont
         'drupalSettings' => [
           'paragraphs_jquery_ui_accordion' => [
             'id' => $accordion_id,
-            'autoscroll' => $this->getSetting('autoscroll')
-          ]
-        ]
-      ]
+            'autoscroll' => $this->getSetting('autoscroll'),
+          ],
+        ],
+      ],
     ];
 
     foreach ($items as $delta => $item) {
@@ -192,7 +193,7 @@ class ParagraphsJQueryUIAccordionFormatter extends FormatterBase implements Cont
         '#theme' => 'paragraphs_jquery_ui_accordion_formatter',
         '#title' => $title,
         '#content' => $content,
-        '#id' =>  $id,
+        '#id' => $id,
       ];
     }
 
@@ -241,8 +242,8 @@ class ParagraphsJQueryUIAccordionFormatter extends FormatterBase implements Cont
   /**
    * Generates unique accordion identifier for html attribute.
    *
-   * @param $id
-   *  Unique identifier.
+   * @param int $id
+   *   Unique identifier.
    *
    * @return string
    *   Returns unique accordion id.
