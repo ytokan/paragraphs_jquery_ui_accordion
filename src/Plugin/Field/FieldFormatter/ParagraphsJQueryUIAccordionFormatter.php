@@ -177,7 +177,7 @@ class ParagraphsJQueryUIAccordionFormatter extends FormatterBase implements Cont
         'library' => 'paragraphs_jquery_ui_accordion/accordion',
         'drupalSettings' => [
           'paragraphs_jquery_ui_accordion' => [
-            'id' => $accordion_id,
+            'ids' => [$items->getEntity()->id() => $accordion_id],
             'autoscroll' => $this->getSetting('autoscroll'),
           ],
         ],
