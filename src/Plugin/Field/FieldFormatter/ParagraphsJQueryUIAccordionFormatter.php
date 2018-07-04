@@ -186,7 +186,7 @@ class ParagraphsJQueryUIAccordionFormatter extends FormatterBase implements Cont
 
     foreach ($items as $delta => $item) {
       $title = $item->entity->get($this->getSetting('title'))->value;
-      $content = $item->entity->get($this->getSetting('content'))->value;
+      $content = $item->entity->get($this->getSetting('content'))->view('default');
       $id = Html::getUniqueId($title);
 
       $elements[0]['accordion'][$delta] = [
