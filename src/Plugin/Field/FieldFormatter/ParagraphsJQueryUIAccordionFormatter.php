@@ -18,6 +18,7 @@ use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Component\Transliteration\TransliterationInterface;
 
 /**
  * Plugin implementation of the 'paragraphs_jquery_ui_accordion_formatter' formatter.
@@ -68,6 +69,13 @@ class ParagraphsJQueryUIAccordionFormatter extends EntityReferenceFormatterBase 
   protected $entityDisplayRepository;
 
   /**
+   * Transliteration service.
+   *
+   * @var \Drupal\Component\Transliteration\TransliterationInterface
+   */
+  protected $transliteration;
+
+  /**
    * ParagraphsJQueryUIAccordionFormatter constructor.
    *
    * @param string $plugin_id
@@ -92,14 +100,17 @@ class ParagraphsJQueryUIAccordionFormatter extends EntityReferenceFormatterBase 
    *   The logger factory.
    * @param \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repository
    *   The entity display repository.
+   * @param \Drupal\Component\Transliteration\TransliterationInterface $transliteration
+   *   The transliteration service.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, EntityTypeBundleInfoInterface $bundle_info, EntityFieldManagerInterface $entity_field_manager, LoggerChannelFactoryInterface $logger_factory, EntityDisplayRepositoryInterface $entity_display_repository) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, EntityTypeBundleInfoInterface $bundle_info, EntityFieldManagerInterface $entity_field_manager, LoggerChannelFactoryInterface $logger_factory, EntityDisplayRepositoryInterface $entity_display_repository, TransliterationInterface $transliteration) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->bundleInfo = $bundle_info;
     $this->entityFieldManager = $entity_field_manager;
     $this->entityTypeId = $this->fieldDefinition->getFieldStorageDefinition()->getSetting('target_type');
     $this->loggerFactory = $logger_factory;
     $this->entityDisplayRepository = $entity_display_repository;
+    $this->transliteration = $transliteration;
   }
 
   /**
@@ -117,7 +128,8 @@ class ParagraphsJQueryUIAccordionFormatter extends EntityReferenceFormatterBase 
       $container->get('entity_type.bundle.info'),
       $container->get('entity_field.manager'),
       $container->get('logger.factory'),
-      $container->get('entity_display.repository')
+      $container->get('entity_display.repository'),
+      $container->get('transliteration')
     );
   }
 
@@ -292,7 +304,7 @@ class ParagraphsJQueryUIAccordionFormatter extends EntityReferenceFormatterBase 
       $content = $entity->get($this->getSetting('content'))->view($settings['view_mode']);
 
       if (!$settings['simple_id']) {
-        $id = Html::getUniqueId($title);
+        $id = Html::getUniqueId($this->transliteration->transliterate($title));
       }
       else {
         $id = $delta + 1;
