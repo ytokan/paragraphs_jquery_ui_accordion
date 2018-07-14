@@ -184,9 +184,6 @@ class ParagraphsJQueryUIAccordionFormatter extends EntityReferenceFormatterBase 
       '#title' => $this->t('Simple Ids'),
       '#description' => $this->t('This makes each accordion id in numerical order (#1, #2, #3 etc).<br />Note this may break functionality if you are using multiple accordions on the same page.'),
       '#default_value' => $this->getSetting('simple_id'),
-      '#attributes' => [
-        'setting-name' => 'autoscroll'
-      ]
     ];
     $form['autoscroll'] = [
       '#type' => 'checkbox',
