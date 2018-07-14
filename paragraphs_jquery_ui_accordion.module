@@ -10,7 +10,7 @@
 function paragraphs_jquery_ui_accordion_theme() {
   return [
     'paragraphs_jquery_ui_accordion_formatter' => [
-      'variables' => ['title' => NULL, 'content' => NULL, 'id' => NULL],
+      'variables' => ['title' => NULL, 'content' => NULL, 'id' => NULL, 'title_attributes' => NULL, 'content_attributes' => NULL],
       'template' => 'paragraphs-jquery-ui-accordion-formatter',
     ],
   ];

@@ -8,9 +8,15 @@
     attach: function (context, settings) {
       var ids = drupalSettings.paragraphs_jquery_ui_accordion.ids;
       var autoscroll = parseInt(drupalSettings.paragraphs_jquery_ui_accordion.autoscroll);
+      var active = parseInt(drupalSettings.paragraphs_jquery_ui_accordion.active);
+      var autoscroll_offset = parseInt(drupalSettings.paragraphs_jquery_ui_accordion.autoscroll_offset);
+
+      if (!autoscroll_offset) {
+        autoscroll_offset = 0;
+      }
 
       // Determine initial state of accordion paragraphs (from hash or first item).
-      if (window.location.hash) {
+      if (window.location.hash || active === 0) {
         var activeParagraph = false;
       } else {
         var activeParagraph = 0;
@@ -50,7 +56,7 @@
         if (newHash !== 'undefined' && newHash) {
           var target = $(newHash);
           $('html, body').animate({
-            scrollTop: target.offset().top - 50
+            scrollTop: target.offset().top - autoscroll_offset
           }, 250);
           return false;
         }
