@@ -4,6 +4,6 @@ type: module
 package: Paragraphs
 core: 8.x
 dependencies:
-  - paragraphs
+  - paragraphs:paragraphs
 libraries:
   - paragraphs_jquery_ui_accordion/accordion
