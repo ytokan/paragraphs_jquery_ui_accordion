@@ -385,7 +385,7 @@ class ParagraphsJQueryUIAccordionFormatter extends EntityReferenceFormatterBase 
    *   Returns unique accordion id.
    */
   protected function getAccordionId($id) {
-    return Html::getUniqueId('accordion-' . $id);
+    return 'accordion-' . $id;
   }
 
 }
